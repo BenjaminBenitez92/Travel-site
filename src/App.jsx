@@ -1,27 +1,9 @@
-import React from "react";
+/* eslint-disable react/react-in-jsx-scope */
+import { useFetchHotelsQuery } from "./store";
 
 const App = () => {
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0,
-  };
-
-  function success(pos) {
-    const crd = pos.coords;
-
-    console.log("Your current position is:");
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude: ${crd.longitude}`);
-    console.log(`More or less ${crd.accuracy} meters.`);
-  }
-
-  function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
-
-  navigator.geolocation.getCurrentPosition(success, error, options);
-
+  const { data, error } = useFetchHotelsQuery();
+  console.log(data, error);
   return (
     <div>
       <h1 className="text-3xl font-bold underline">Hello world!</h1>
