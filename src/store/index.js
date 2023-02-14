@@ -6,12 +6,14 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { flightsApi } from "./apis/flightsapi";
 import { carsApi } from "./apis/carsapi";
 import { hotelsApi } from "./apis/hotelsapi";
+import { formReducer } from "./Slices/formSlice";
 
 export const store = configureStore({
   reducer: {
     hotels: hotelReducer,
     cars: carsReducer,
     flights: flightReducer,
+    form: formReducer,
     [flightsApi.reducerPath]: flightsApi.reducer,
     [carsApi.reducerPath]: carsApi.reducer,
     [hotelsApi.reducerPath]: hotelsApi.reducer,
@@ -26,6 +28,20 @@ export const store = configureStore({
 
 setupListeners(store.dispatch);
 
+export {
+  departureDate,
+  returnDate,
+  locDeparture,
+  locArrival,
+  ininerType,
+} from "./Slices/flightSlice";
+export {
+  handleNumOfAdults,
+  handleNumOfkids,
+  handleLocEnd,
+  handleLocStart,
+  handleitineraryType,
+} from "./Slices/formSlice";
 export { useFetchFlightsQuery } from "./apis/flightsapi";
 export { useFetchCarsQuery } from "./apis/carsapi";
 export { useFetchHotelsQuery } from "./apis/hotelsapi";

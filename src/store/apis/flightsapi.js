@@ -1,29 +1,29 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const flightsApi = createApi({
-  reducerPath: "flights",
+  reducerPath: "flight",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://priceline-com-provider.p.rapidapi.com",
   }),
   endpoints: (builder) => {
     return {
       fetchFlights: builder.query({
-        query: () => {
+        query: (input) => {
           return {
             url: "/v1/flights/search",
             method: "GET",
             params: {
-              date_departure: "2023-07-22",//string
-              date_departure_return: "2023-07-30",//string
-              location_departure: "LAX",//string
-              location_arrival: "NYC",//string
-              class_type: "ECO",//string
-              sort_order: "PRICE",//string
-              itinerary_type: "ROUND_TRIP",//string
-              price_min: "",//number
-              price_max: "",//number
-              number_of_passengers: "",//number
-              number_of_stop: ""// number
+              date_departure: input.dateDeparture, //string
+              date_departure_return: input.dateReturn, //string
+              location_departure: input.locationDeparture, //string
+              location_arrival: input.locationArrival, //string
+              class_type: "ECO", //string
+              sort_order: "PRICE", //string
+              itinerary_type: input.itineraryType, //string
+              price_min: 1, //number
+              price_max: 2500, //number
+              number_of_passengers: 1, //number
+              number_of_stop: 0, // number
             },
             headers: {
               "X-RapidAPI-Key":

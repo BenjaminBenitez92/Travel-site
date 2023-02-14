@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const hotelSlice = createSlice({
-  name: "hotels",
+  name: "hotel",
   initialState: {
     data: [],
     isLoading: false,
