@@ -34,7 +34,7 @@ const flightSlice = createSlice({
     locArrival: (state, action) => {
       state.input.locationArrival = action.payload;
     },
-    classType: (state, action) => {
+    classTypes: (state, action) => {
       state.input.classType = action.payload;
     },
     sortOrder: (state, action) => {
@@ -55,6 +55,10 @@ const flightSlice = createSlice({
     numofStops: (state, action) => {
       state.input.numberOfStops = action.payload;
     },
+    flightsData: (state, action) =>{
+      
+      state.data =action.payload
+    }
   },
 });
 export const {
@@ -68,5 +72,7 @@ export const {
   priceMin,
   numOfpassengers,
   numofStops,
+  flightsData,
+  classTypes
 } = flightSlice.actions;
 export const flightReducer = flightSlice.reducer;

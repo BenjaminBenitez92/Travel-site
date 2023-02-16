@@ -1,23 +1,26 @@
-import React from "react";
-import Panel from "./Panel"
-import {useFetchFlightsQuery } from "../store"
-import { useSelector } from "react-redux";
-const FlightList = () => {
-  const flightsInput = useSelector((state) => {
-    return state.flights.input;
-  });
-  const {data} = useFetchFlightsQuery(flightsInput)
-  const renderList = data.map((flight) =>{
-    return( <Panel key={flight.id}>
-    <div>
-      {flight.airline.name}
-    </div>
-    </Panel>)
+/* eslint-disable react/prop-types */
+import React from 'react'
+import { useSelector } from 'react-redux'
+const FlightList = ({isSuccess}) => {
+  const flightData = useSelector((state) =>{
+    return state.flights.data
   })
-  console.log(renderList)
-  return <div>
-    {renderList}
-  </div>;
-};
+  console.log(flightData)
+  let renderAirline
+  if(isSuccess){
+   renderAirline = flightData.airline.map((data)=>{
+    
+    return <div key={data.name}>
+      <img src={data.smallImage} alt="" />
+      
+      {data.name}
+    </div>
+  })}
+  return (
+    <div>
+      {renderAirline}
+    </div>
+  )
+}
 
-export default FlightList;
+export default FlightList

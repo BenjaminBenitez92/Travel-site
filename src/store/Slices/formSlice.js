@@ -8,23 +8,27 @@ const formSlice = createSlice({
     adults: 1,
     kids: 0,
     itineraryType: "",
+    classType: ""
   },
   reducers: {
-    handleLocStart: (state, actions) => {
-      state.locStart = actions.payload;
+    handleLocStart: (state, action) => {
+      state.locStart = action.payload;
     },
-    handleLocEnd: (state, actions) => {
-      state.locEnd = actions.payload;
+    handleLocEnd: (state, action) => {
+      state.locEnd = action.payload;
     },
-    handleNumOfAdults: (state, actions) => {
-      state.adults = actions.payload;
+    handleNumOfAdults: (state, action) => {
+      state.adults = action.payload;
     },
-    handleNumOfkids: (state, actions) => {
-      state.kids = actions.payload;
+    handleNumOfkids: (state, action) => {
+      state.kids = action.payload;
     },
-    handleitineraryType: (state, actions) => {
-      state.itineraryType = actions.payload;
+    handleitineraryType: (state, action) => {
+      state.itineraryType = action.payload;
     },
+    handleClassType: (state, action) =>{
+      state.classType = action.payload
+    }
   },
 });
 export const {
@@ -33,5 +37,6 @@ export const {
   handleLocEnd,
   handleLocStart,
   handleitineraryType,
+  handleClassType
 } = formSlice.actions;
 export const formReducer = formSlice.reducer;

@@ -17,12 +17,12 @@ const flightsApi = createApi({
               date_departure_return: input.dateReturn, //string
               location_departure: input.locationDeparture, //string
               location_arrival: input.locationArrival, //string
-              class_type: "ECO", //string
+              class_type: input.classType, //string
               sort_order: "PRICE", //string
               itinerary_type: input.itineraryType, //string
               price_min: 1, //number
               price_max: 2500, //number
-              number_of_passengers: 1, //number
+              number_of_passengers: input.numOfpassengers,
               number_of_stop: 0, // number
             },
             headers: {

@@ -34,6 +34,8 @@ export {
   locDeparture,
   locArrival,
   ininerType,
+  flightsData,
+  classTypes
 } from "./Slices/flightSlice";
 export {
   handleNumOfAdults,
@@ -41,6 +43,7 @@ export {
   handleLocEnd,
   handleLocStart,
   handleitineraryType,
+  handleClassType
 } from "./Slices/formSlice";
 export { useFetchFlightsQuery } from "./apis/flightsapi";
 export { useFetchCarsQuery } from "./apis/carsapi";
