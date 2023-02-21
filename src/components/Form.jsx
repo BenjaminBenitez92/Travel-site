@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Panel from "./Panel";
 import {
   departureDate,
-  returnDate,
   locDeparture,
   locArrival,
-  ininerType,
   handleLocEnd,
   handleLocStart,
   handleNumOfAdults,
@@ -14,7 +12,7 @@ import {
   flightsData,
   handleClassType,
   classTypes,
-  useFetchFlightsQuery,
+  useFetchRoundTripFlightsQuery,
 } from "../store";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -24,7 +22,7 @@ const Form = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [skip, setSkip] = useState(true);
-
+  const dispatch = useDispatch();
   const { flightsInput, flightList } = useSelector((state) => {
     return {
       flightsInput: state.flights.input,
@@ -32,7 +30,7 @@ const Form = () => {
     };
   });
 
-  const { data, error, isSuccess, isFetching } = useFetchFlightsQuery(
+  const { data, error, isSuccess, isFetching } = useFetchRoundTripFlightsQuery(
     flightsInput,
     {
       skip,
@@ -43,18 +41,14 @@ const Form = () => {
     dispatch(flightsData(data));
   }, [data]);
 
-  const dispatch = useDispatch();
-
-  const { departure, arrival, passangers, ineraryType, classType } =
-    useSelector((state) => {
-      return {
-        departure: state.form.locStart,
-        arrival: state.form.locEnd,
-        passangers: state.form.adults,
-        ineraryType: state.form.itineraryType,
-        classType: state.form.classType,
-      };
-    });
+  const { departure, arrival, passangers, classType } = useSelector((state) => {
+    return {
+      departure: state.form.locStart,
+      arrival: state.form.locEnd,
+      passangers: state.form.adults,
+      classType: state.form.classType,
+    };
+  });
 
   const handleOnChangeDeparture = (e) => {
     dispatch(handleLocStart(e.target.value));
@@ -73,14 +67,18 @@ const Form = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     let formatDepartureDate = startDate.toISOString().split("T")[0];
     let formatReturnDate = endDate.toISOString().split("T")[0];
+    let joinedDate = formatDepartureDate.concat(" ", ",", formatReturnDate);
+    let joinLoc = departure.concat(",", arrival);
+
     setSkip(false);
-    dispatch(locDeparture(departure));
-    dispatch(locArrival(arrival));
-    dispatch(departureDate(formatDepartureDate));
-    dispatch(returnDate(formatReturnDate));
-    dispatch(ininerType(ineraryType));
+
+    dispatch(locDeparture(joinLoc));
+    dispatch(locArrival(joinLoc));
+    dispatch(departureDate(joinedDate));
+
     dispatch(classTypes(classType));
   };
 
@@ -95,9 +93,9 @@ const Form = () => {
 
   return (
     <div>
-      <Panel className=" w-1/5 h-3-5  ">
+      <Panel className="w-1/2 h-1/3">
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-row ">
+          <div className="flex flex-row flex-wrap ">
             <div className="mr-10">
               <label>
                 <input
@@ -170,10 +168,10 @@ const Form = () => {
             </div>
             <div>
               <select onClick={handleSelectClick}>
-                <option value="ECO">Economy</option>
-                <option value="PEC">Premium Economy</option>
-                <option value="BUS">Business</option>
-                <option value="FST">First</option>
+                <option value="economy">Economy</option>
+                <option value="premium">Premium Economy</option>
+                <option value="business">Business</option>
+                <option value="first">First</option>
               </select>
             </div>
           </div>

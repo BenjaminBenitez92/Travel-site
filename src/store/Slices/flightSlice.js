@@ -17,9 +17,18 @@ const flightSlice = createSlice({
       numberOfStops: 0,
     },
 
-    data: [],
-    isLoading: false,
-    error: null,
+    data: {
+      getAirFlightRoundTrip:{
+        results:{
+          air_search_rsp:{
+            airline:[],
+            segment:[]
+
+          }
+        }
+      }
+    },
+    flightSegment:[],
   },
   reducers: {
     departureDate: (state, action) => {
@@ -32,7 +41,10 @@ const flightSlice = createSlice({
       state.input.locationDeparture = action.payload;
     },
     locArrival: (state, action) => {
-      state.input.locationArrival = action.payload;
+      state.input.locationArrival = action.payload
+        .split(",")
+        .reverse()
+        .join(",");
     },
     classTypes: (state, action) => {
       state.input.classType = action.payload;
@@ -55,9 +67,12 @@ const flightSlice = createSlice({
     numofStops: (state, action) => {
       state.input.numberOfStops = action.payload;
     },
-    flightsData: (state, action) =>{
+    flightsData: (state, action) => {
+      state.data = action.payload;
+    },
+    handleFlightSegment: (state, action) =>{
       
-      state.data =action.payload
+      state.flightSegment.push(action.payload)
     }
   },
 });
@@ -73,6 +88,7 @@ export const {
   numOfpassengers,
   numofStops,
   flightsData,
-  classTypes
+  classTypes,
+  handleFlightSegment
 } = flightSlice.actions;
 export const flightReducer = flightSlice.reducer;

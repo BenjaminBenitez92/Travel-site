@@ -35,7 +35,8 @@ export {
   locArrival,
   ininerType,
   flightsData,
-  classTypes
+  classTypes,
+  handleFlightSegment
 } from "./Slices/flightSlice";
 export {
   handleNumOfAdults,
@@ -45,6 +46,6 @@ export {
   handleitineraryType,
   handleClassType
 } from "./Slices/formSlice";
-export { useFetchFlightsQuery } from "./apis/flightsapi";
+export { useFetchRoundTripFlightsQuery } from "./apis/flightsapi";
 export { useFetchCarsQuery } from "./apis/carsapi";
 export { useFetchHotelsQuery } from "./apis/hotelsapi";

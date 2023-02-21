@@ -7,27 +7,22 @@ const flightsApi = createApi({
   }),
   endpoints: (builder) => {
     return {
-      fetchFlights: builder.query({
+      fetchRoundTripFlights: builder.query({
         query: (input) => {
           return {
-            url: "/v1/flights/search",
+            url: "/v2/flight/roundTrip",
             method: "GET",
             params: {
-              date_departure: input.dateDeparture, //string
-              date_departure_return: input.dateReturn, //string
-              location_departure: input.locationDeparture, //string
-              location_arrival: input.locationArrival, //string
-              class_type: input.classType, //string
-              sort_order: "PRICE", //string
-              itinerary_type: input.itineraryType, //string
-              price_min: 1, //number
-              price_max: 2500, //number
-              number_of_passengers: input.numOfpassengers,
-              number_of_stop: 0, // number
+              departure_date: input.dateDeparture, //string
+              sid: "iSiX639",
+              origin_airport_code: input.locationDeparture, //string
+              destination_airport_code: input.locationArrival, //string
+              cabin_class: input.classType, //string
+              adults: 1,
             },
             headers: {
               "X-RapidAPI-Key":
-                "aec57077b7mshe7c9917e3720dc3p12dae9jsn6c72418df371",
+                "ccf57ed79dmshe009ffc1d805f88p1bc4ddjsn6ece6875b91d",
               "X-RapidAPI-Host": "priceline-com-provider.p.rapidapi.com",
             },
           };
@@ -37,5 +32,5 @@ const flightsApi = createApi({
   },
 });
 
-export const { useFetchFlightsQuery } = flightsApi;
+export const { useFetchRoundTripFlightsQuery } = flightsApi;
 export { flightsApi };
