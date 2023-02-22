@@ -13,6 +13,7 @@ import {
   handleClassType,
   classTypes,
   useFetchRoundTripFlightsQuery,
+  handleID
 } from "../store";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -67,7 +68,14 @@ const Form = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < 5) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
     let formatDepartureDate = startDate.toISOString().split("T")[0];
     let formatReturnDate = endDate.toISOString().split("T")[0];
     let joinedDate = formatDepartureDate.concat(" ", ",", formatReturnDate);
@@ -78,7 +86,7 @@ const Form = () => {
     dispatch(locDeparture(joinLoc));
     dispatch(locArrival(joinLoc));
     dispatch(departureDate(joinedDate));
-
+    dispatch(handleID(result))
     dispatch(classTypes(classType));
   };
 

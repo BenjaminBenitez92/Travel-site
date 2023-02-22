@@ -15,6 +15,7 @@ const flightSlice = createSlice({
       priceMax: 0,
       numberOfPassengers: 1,
       numberOfStops: 0,
+      id:""
     },
 
     data: {
@@ -29,6 +30,16 @@ const flightSlice = createSlice({
       }
     },
     flightSegment:[],
+    departDateInfo:{
+      date:"",
+      time:[]
+    },
+    arrivalDateInfo:{
+      date:"",
+      time: []
+    },
+    pricedItinerary:[],
+    
   },
   reducers: {
     departureDate: (state, action) => {
@@ -73,8 +84,48 @@ const flightSlice = createSlice({
     handleFlightSegment: (state, action) =>{
       
       state.flightSegment.push(action.payload)
+    },
+    handlePricedItinerary: (state, action) =>{
+      state.pricedItinerary.push(action.payload)
+    },
+    handleID: (state, action) =>{
+      state.input.id= action.payload
+    },
+    handleDepartInfo: (state, action) =>{
+     const [date, time]= action.payload.split("T")
+      let [hh, mm]=time.split(":")
+      let dd = "AM"
+      let h = hh
+      
+      if(h>=12){
+        h= hh-12
+        dd="PM"
+      }
+      if(h==0){
+        h=12
+      }
+      let format = ( h + ":" + mm + dd)
+      state.departDateInfo.time.push(format)
+      state.departDateInfo.date = date
+    },
+    handleArrvailInfo: (state, action) =>{
+      const [date, time]= action.payload.split("T")
+      let [hh, mm]=time.split(":")
+      let dd = "AM"
+      let h = hh
+      
+      if(h>=12){
+        h= hh-12
+        dd="PM"
+      }
+      if(h==0){
+        h=12
+      }
+      let format = ( h + ":" + mm + dd)
+      state.arrivalDateInfo.time.push(format)
+      state.arrivalDateInfo.date = date
     }
-  },
+  }
 });
 export const {
   departureDate,
@@ -89,6 +140,10 @@ export const {
   numofStops,
   flightsData,
   classTypes,
-  handleFlightSegment
+  handleFlightSegment,
+  handleDepartInfo,
+  handleArrvailInfo,
+  handlePricedItinerary,
+  handleID
 } = flightSlice.actions;
 export const flightReducer = flightSlice.reducer;

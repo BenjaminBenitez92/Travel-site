@@ -36,7 +36,11 @@ export {
   ininerType,
   flightsData,
   classTypes,
-  handleFlightSegment
+  handleFlightSegment,
+  handleDepartInfo,
+  handleArrvailInfo,
+  handlePricedItinerary,
+  handleID
 } from "./Slices/flightSlice";
 export {
   handleNumOfAdults,

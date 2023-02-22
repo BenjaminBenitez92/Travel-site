@@ -14,11 +14,12 @@ const flightsApi = createApi({
             method: "GET",
             params: {
               departure_date: input.dateDeparture, //string
-              sid: "iSiX639",
+              sid: input.id,
               origin_airport_code: input.locationDeparture, //string
               destination_airport_code: input.locationArrival, //string
               cabin_class: input.classType, //string
               adults: 1,
+              number_of_itineraries: 50,
             },
             headers: {
               "X-RapidAPI-Key":
@@ -31,6 +32,6 @@ const flightsApi = createApi({
     };
   },
 });
-
+console.log()
 export const { useFetchRoundTripFlightsQuery } = flightsApi;
 export { flightsApi };
